@@ -1,6 +1,11 @@
 
 # Script to set up my mac for development #
 
+## Installation
+
+Git clone to `~/mac-setup-and-scripts` (and keep it there)
+
+
 ## Instructions
 
 - Fix all settings in mac [system preferences](./mac-settings.md)
