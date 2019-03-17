@@ -38,6 +38,7 @@ Thumbs.db
 
 # project files #
 .idea
+.vscode
 .svn
 .tmp
 npm-debug.log
