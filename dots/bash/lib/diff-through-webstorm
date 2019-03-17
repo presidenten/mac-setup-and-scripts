@@ -1,0 +1,7 @@
+#
+# Webstorm diff is awesome, use `wdiff file1 file2` to diff files or directories
+#
+
+wdiff() {
+  webstorm diff $@
+}

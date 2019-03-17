@@ -1,0 +1,16 @@
+#
+# Less syntax highlight
+#
+
+LESSPIPE=`which src-hilite-lesspipe.sh`
+
+export LESSOPEN="| ${LESSPIPE} %s"
+
+# -R is needed for coloring, so leave that.
+# -X will leave the text in your Terminal, so it doesnt disappear when you exit less.
+# -F will exit less if the output fits on one screen (so you dont have to press q).
+export LESS=' -R -X -F '
+
+
+
+alias less='LESSOPEN="| pygmentize -f terminal256 -O style=native -g %s" less -R "$@"';

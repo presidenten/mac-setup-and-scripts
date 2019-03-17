@@ -1,0 +1,16 @@
+
+#
+# Copy your pubkey to server so you dont have to login with password
+#
+copy-rsa-key-to-server() {
+  ssh-copy-id -f -i ~/.ssh/id_rsa.pub $1
+}
+
+#
+# Run to generate a new key
+#
+generate-rsa-key() {
+  ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -N ""
+}
+
+
