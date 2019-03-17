@@ -1,0 +1,9 @@
+
+
+git-log() {
+  git log --stat --color --decorate --all --oneline
+}
+
+git-diff() {
+  git diff $@ --word-diff="color"
+}

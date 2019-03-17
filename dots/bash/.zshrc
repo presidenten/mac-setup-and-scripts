@@ -29,6 +29,8 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # -------------
 # `copy-rsa-key-to-server name@server` and `generate-rsa-key name@server`
 source $LIBS/ssh
+# `git-log, git-diff`
+source $LIBS/git
 # `showFiles, hideFiles, ls-dots`
 source $LIBS/hidden-files
 # Syntax highlighting for less
