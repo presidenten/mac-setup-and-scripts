@@ -4,11 +4,6 @@ DOTS=$CLONE/dots
 LIBS=$DOTS/bash/lib
 
 
-# Set language
-export LC_ALL=sv_SE.UTF-8
-export LANG=sv_SE.UTF-8
-
-
 # Setup powerlevel9k
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_SHOW_CHANGESET=true
