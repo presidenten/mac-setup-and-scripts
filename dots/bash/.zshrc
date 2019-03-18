@@ -3,6 +3,10 @@ CLONE=$HOME/mac-setup-and-scripts
 DOTS=$CLONE/dots
 LIBS=$DOTS/bash/lib
 
+# Locale
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
 
 # Setup powerlevel9k
 POWERLEVEL9K_MODE='nerdfont-complete'
