@@ -22,6 +22,50 @@ icon() {
   echo -n "\ufb44"    # filetree
 }
 
+zsh_internet_signal(){
+  #source on quality levels - http://www.wireless-nets.com/resources/tutorials/define_SNR_values.html
+  #source on signal levels  - http://www.speedguide.net/faq/how-to-read-rssisignal-and-snrnoise-ratings-440
+	local signal=$(airport -I | grep agrCtlRSSI | awk '{print $2}' | sed 's/-//g')
+  local noise=$(airport -I | grep agrCtlNoise | awk '{print $2}' | sed 's/-//g')
+  if [ ! -z $signal ]; then
+    local SNR=$(bc <<<"scale=2; $signal / $noise")
+  fi
+
+  local color='%F{yellow}'
+  local symbol="\uf98c"
+
+  # Excellent Signal (5 bars)
+  if [[ ! -z "${signal// }" ]] && [[ $SNR -gt .40 ]] ;
+    then color='%F{green}' ; symbol="\uf1eb " ;
+  fi
+
+  # Good Signal (3-4 bars)
+  if [[ ! -z "${signal// }" ]] && [[ ! $SNR -gt .40 ]] && [[ $SNR -gt .25 ]] ;
+    then color='%F{green}' ; symbol="\uf1eb " ;
+  fi
+
+  # Low Signal (2 bars)
+  if [[ ! -z "${signal// }" ]] && [[ ! $SNR -gt .25 ]] && [[ $SNR -gt .15 ]] ;
+    then color='%F{yellow}' ; symbol="\ufaa8 " ;
+  fi
+
+  # Very Low Signal (1 bar)
+  if [[ ! -z "${signal// }" ]] && [[ ! $SNR -gt .15 ]] && [[ $SNR -gt .10 ]] ;
+    then color='%F{orange}' ; symbol="\ufaa8 " ;
+  fi
+
+  # No Signal
+  if [[ -z "${signal// }" ]] ;
+    then color='%F{red}' ; symbol=" \ufaa9" ;
+  fi
+
+  # Ethernet Connection (no wifi, hardline)
+  #if [[ -z "${signal// }" ]] && [[ "$net" -eq 200 ]] ;
+  #  then color='%F{blue}' ; symbol="\uf98c" ;
+  #fi
+
+  echo -n "%{$color%}$symbol" # \f1eb is wifi bars
+}
 
 # ------------
 #   Settings
@@ -39,7 +83,7 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="╰─> $ "
 
 # Prompt elements
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_icon dir vcs ssh dir_writable)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs command_execution_time ssh battery)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs command_execution_time ssh custom_wifi_signal battery)
 
 # Command status
 POWERLEVEL9K_STATUS_VERBOSE=true
@@ -51,6 +95,9 @@ POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
 # Battery
 POWERLEVEL9K_BATTERY_STAGES=($'\uF244' $'\uF243' $'\uF242' $'\uF241' $'\uF240')
 POWERLEVEL9K_BATTERY_VERBOSE=true
+
+# Internet signal
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_internet_signal"
 
 # Shorten dirs
 #POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
@@ -120,6 +167,9 @@ POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND="123"
 POWERLEVEL9K_LOAD_CRITICAL_VISUAL_IDENTIFIER_COLOR="red"
 POWERLEVEL9K_LOAD_WARNING_VISUAL_IDENTIFIER_COLOR="yellow"
 POWERLEVEL9K_LOAD_NORMAL_VISUAL_IDENTIFIER_COLOR="green"
+
+POWERLEVEL9K_NETWORK_ICON=`zsh_internet_signal`
+POWERLEVEL9K_CUSTOM_ICON_BACKGROUND="$DEFAULT_BACKGROUND"
 
 
 # ---------

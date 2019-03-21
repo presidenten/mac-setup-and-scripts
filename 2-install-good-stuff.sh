@@ -32,6 +32,9 @@ brew install \
 brew tap caskroom/fonts
 brew cask install font-hack-nerd-font
 
+# Allow airport as a shell command
+sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport
+
 # Set gnu sed and grep as default and set up syntax hightlight
 brew install \
   source-highlight \
