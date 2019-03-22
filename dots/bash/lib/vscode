@@ -19,7 +19,7 @@ function code {
 # When using ssh, you may then run `code filename` and edit the remote file from within vs code.
 #
 setup-remote-editing() {
-  ssh -t $1 'sudo wget -O /usr/local/bin/rmate https://raw.github.com/aurora/rmate/master/rmate; sudo chmod a+x /usr/local/bin/rmate; sudo ln -s /usr/local/bin/rmate /usr/local/bin/code'
+  ssh -t $1 'sudo yum install -y wget; sudo wget -O /usr/local/bin/rmate https://raw.github.com/aurora/rmate/master/rmate; sudo chmod a+x /usr/local/bin/rmate; sudo ln -s /usr/local/bin/rmate /usr/local/bin/code'
 }
 
 #
