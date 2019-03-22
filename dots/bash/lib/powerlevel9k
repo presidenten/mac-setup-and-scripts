@@ -15,7 +15,7 @@ adjust_p9k_size()
 
 icon() {
   #echo -n "\ufb8a"   # scull
-  #echo -n "\uf1d0"    # rebels
+  #echo -n "\uf1d0"    # rebel alliance
   #echo -n "\uf6a6"    # cube
   #echo -n "\ue36e"    # alien
   #echo -n "\uf79f"    # ghost
@@ -23,48 +23,50 @@ icon() {
 }
 
 zsh_internet_signal(){
-  #source on quality levels - http://www.wireless-nets.com/resources/tutorials/define_SNR_values.html
-  #source on signal levels  - http://www.speedguide.net/faq/how-to-read-rssisignal-and-snrnoise-ratings-440
 	local signal=$(airport -I | grep agrCtlRSSI | awk '{print $2}' | sed 's/-//g')
   local noise=$(airport -I | grep agrCtlNoise | awk '{print $2}' | sed 's/-//g')
-  if [ ! -z $signal ]; then
+  local ethernet=$(ifconfig | grep -B 4 "inet.*broadcast" | grep -Po '^ens?[1-9]+')
+
+  if [ ! -z $signal ] && [ $noise -gt 0 ]; then
     local SNR=$(bc <<<"scale=2; $signal / $noise")
   fi
 
+  # No Signal
   local color='%F{yellow}'
-  local symbol="\uf98c"
+  local symbol="\uf663" # No cloud icon
 
   # Excellent Signal (5 bars)
   if [[ ! -z "${signal// }" ]] && [[ $SNR -gt .40 ]] ;
-    then color='%F{green}' ; symbol="\uf1eb " ;
+    then color='%F{green}' ; symbol="\uf1eb" ; # Wifi icon
   fi
 
   # Good Signal (3-4 bars)
   if [[ ! -z "${signal// }" ]] && [[ ! $SNR -gt .40 ]] && [[ $SNR -gt .25 ]] ;
-    then color='%F{green}' ; symbol="\uf1eb " ;
+    then color='%F{green}' ; symbol="\uf1eb" ; # Wifi icon
   fi
 
   # Low Signal (2 bars)
   if [[ ! -z "${signal// }" ]] && [[ ! $SNR -gt .25 ]] && [[ $SNR -gt .15 ]] ;
-    then color='%F{yellow}' ; symbol="\ufaa8 " ;
+    then color='%F{yellow}' ; symbol="\ufaa8" ; # Less wifi icon
   fi
 
   # Very Low Signal (1 bar)
   if [[ ! -z "${signal// }" ]] && [[ ! $SNR -gt .15 ]] && [[ $SNR -gt .10 ]] ;
-    then color='%F{orange}' ; symbol="\ufaa8 " ;
+    then color='%F{orange}' ; symbol="\ufaa8" ; # Less wifi icon
   fi
 
-  # No Signal
+
+  # Wifi off
   if [[ -z "${signal// }" ]] ;
-    then color='%F{red}' ; symbol=" \ufaa9" ;
+    then color='%F{yellow}' ; symbol="\uf204" ; # Toggle off icon
   fi
 
-  # Ethernet Connection (no wifi, hardline)
-  #if [[ -z "${signal// }" ]] && [[ "$net" -eq 200 ]] ;
-  #  then color='%F{blue}' ; symbol="\uf98c" ;
-  #fi
+  # Ethernet Connection
+  if [[ ! -z "${ethernet// }" ]];
+    then color='%F{cyan}' ; symbol=" \ufbf1" ; # Network icon
+  fi
 
-  echo -n "%{$color%}$symbol" # \f1eb is wifi bars
+  echo -n "%{$color%}$symbol "
 }
 
 # ------------
