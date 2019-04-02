@@ -23,6 +23,9 @@ nvm alias default $node_version
 brew install yarn
 brew uninstall node --ignore-dependencies # Fixes broken yarn install
 
+# Install powerlevel10k
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+
 # Install powerlevel 9k and zsh plugins
 brew tap sambadevi/powerlevel9k
 brew install \
