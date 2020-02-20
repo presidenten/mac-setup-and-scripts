@@ -45,6 +45,8 @@ source $LIBS/python3
 source $LIBS/vscode
 # Webstorm diff: `wdiff file1 file2`
 source $LIBS/diff-through-webstorm
+# Kubernetes
+source $LIBS/kubectl
 
 
 # Include gnu versions first, lastly add script directories
