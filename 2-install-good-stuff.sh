@@ -6,39 +6,46 @@ ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/loca
 ## Git push current branch as default
 git config --global push.default current
 
+## Use keychain for credentials
+git config --global credential.helper osxkeychain
+
+
 ## Generate ssh-key
-ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -N ""
-
-## Install node and nvm
-node_version=v10.15.3
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-source .zshrc
-nvm install $node_version
-nvm alias default $node_version
-
-# Install homebrew
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-# Install yarn package manager
-brew install yarn
-brew uninstall node --ignore-dependencies # Fixes broken yarn install
+# ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -N ""
 
 # Install powerlevel10k
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
-# Install powerlevel 9k and zsh plugins
-brew tap sambadevi/powerlevel9k
-brew install \
-  powerlevel9k \
-  zsh-syntax-highlighting \
-  zsh-autosuggestions
-brew tap caskroom/fonts
-brew cask install font-hack-nerd-font
+brew install zsh-syntax-highlighting
+brew install zsh-autosuggestions
+
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+
+# install fuzzy file finder and bat
+brew install fzf
+brew install bat
 
 # Allow airport as a shell command
-sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport
+#sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport
+
+# Install quicklook stuff
+# qlcolorcode    - code
+# qlstephen      - all files without ending
+# qlmarkdown     - markdown
+# quicklook-json -
+# betterzip      -
+# qlimagesize    -
+# qlvideo        -
+brew install qlcolorcode qlstephen qlmarkdown quicklook-json betterzip qlimagesize qlvideo
+brew remove qlcolorcode qlstephen qlmarkdown quicklook-json betterzip qlimagesize qlvideo
+xattr -d -r com.apple.quarantine ~/Library/QuickLook
 
 # Set gnu sed and grep as default and set up syntax hightlight
+
+brew install source-highlight openssl wget tree nano gnu-sed grep findutils watch
+
+
 brew install \
   source-highlight \
   openssl \
@@ -49,8 +56,11 @@ brew install \
   grep
 mv /usr/local/bin/gsed /usr/local/bin/sed
 mv /usr/local/bin/ggrep /usr/local/bin/grep
+mv /usr/local/bin/ggrep /usr/local/bin/grep
+
 mv /usr/local/bin/gegrep /usr/local/bin/egrep
 mv /usr/local/bin/gfgrep /usr/local/bin/fgrep
+
 sudo easy_install Pygments
 style=`find /usr/local/Cellar/source-highlight -type f -iname 'esc.style'`
 sed -i -e 's/string [^;]*/string green /' $style

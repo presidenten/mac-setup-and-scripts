@@ -1,0 +1,7 @@
+#
+# Show quarantined files from quicklook plugins
+#
+
+alias quicklookShowQuarantine='xattr -r ~/Library/QuickLook'
+alias quicklookClearQuarantine='xattr -d -r com.apple.quarantine ~/Library/QuickLook'
+

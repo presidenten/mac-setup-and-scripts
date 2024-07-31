@@ -25,5 +25,5 @@ setup-remote-editing() {
 #
 # Use tunnels to allow for remote editing
 #
-alias ssh='ssh -R 52698:localhost:52698'
+# alias ssh='ssh -R 52698:localhost:52698'
 
