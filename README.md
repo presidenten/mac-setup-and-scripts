@@ -24,3 +24,8 @@ Git clone to `~/mac-setup-and-scripts` (and keep it there)
 ## Scripts
 
 Coming...
+
+brew update
+brew install jq
+brew install k-nasa/tap/goku
+brew install pygments
