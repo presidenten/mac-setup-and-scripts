@@ -23,6 +23,7 @@ brew tap homebrew/cask-fonts
 brew install --cask font-hack-nerd-font
 
 # install fuzzy file finder and bat
+# https://www.youtube.com/watch?v=oTNRvnQLLLs
 brew install fzf
 brew install bat
 
