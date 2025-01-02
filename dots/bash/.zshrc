@@ -47,6 +47,8 @@ source $LIBS/vscode
 source $LIBS/diff-through-webstorm
 # Kubernetes
 source $LIBS/kubectl
+# Kubernetes
+source $LIBS/fzf
 
 
 # Include gnu versions first, lastly add script directories
